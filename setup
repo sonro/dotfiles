@@ -1,0 +1,246 @@
+#!/usr/bin/env bash
+set -e
+
+HELP="\
+DOTFILE SETUP
+=============
+sonro <sonro@gmx.com>
+
+Setup software and configurations for development on *nix
+
+USAGE: setup [OPTIONS]
+
+OPTIONS:
+	-h, --help       Prints help information
+	-s, --server     Setup without node and neovim (for a more minimal install)
+	-n, --new        Replace existing config files
+
+If any combination of these flags are set: only those functions will run
+	-f, --files      Setup files
+	-i, --install    Install software
+	-p, --plugins	 Install plugins
+"
+
+# Config
+DOTFILE_DIR="$HOME/.dotfiles"
+NVM_DIR="$HOME/.nvm"
+
+# Options
+FRESH=false
+SERVER=false
+EXPLICIT=false
+FILES=false
+INSTALL=false
+PLUGINS=false
+
+main() {
+	parse_args "$@"
+
+	if [[ "$EXPLICIT" == false || "$FILES" == true ]]; then
+		setup_files
+	fi
+
+	if [[ "$EXPLICIT" == false || "$INSTALL" == true ]]; then
+		local os="$(get_nix_version)"
+		install_software "$os"
+	fi
+
+	if [[ "$EXPLICIT" == false || "$PLUGINS" == true ]]; then
+		install_plugins
+	fi
+
+	return 0
+}
+
+parse_args() {
+	for opt in "$@"; do
+		case "$opt" in
+			-n|--new) FRESH=true;;
+			-s|--server) SERVER=true;;
+			-h|--help)
+				echo "$HELP"
+				exit 0
+				;;
+			-f|--files) 
+				EXPLICIT=true
+				FILES=true
+				;;
+			-i|--install) 
+				EXPLICIT=true
+				INSTALL=true
+				;;
+			-p|--plugins) 
+				EXPLICIT=true
+				PLUGINS=true
+				;;
+		esac
+	done
+
+	return 0
+}
+
+install_plugins() {
+	local vim_plug_url="\
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+
+	# set loaction of vim-plug install
+	local plug_local_file
+	if [[ "$SERVER" == true ]]; then
+		plug_local_file="$DOTFILE_DIR/vim/home/autoload/plug.vim"
+	else
+		plug_local_file="$HOME/.local/share/nvim/site/autoload/plug.vim"
+	fi
+
+	# install vim-plug
+	if [[ ! -f "$plug_local_file" || "$FRESH" == true ]]; then
+		echo "Installing VimPlug"
+		curl -fLo "$plug_local_file" --create-dirs "$vim_plug_url"
+	fi
+
+	# install vim plugins
+	echo "Installing Vim Plugins"
+	if [[ "$SERVER" == true ]]; then
+		vim -es -u "$DOTFILE/vim/vimrc" -i NONE -c "PlugInstall" -c "qa"	
+	else
+		nvim -es -u "$DOTFILE_DIR/nvim/config/init.vim" \
+			-i NONE -c "PlugInstall" -c "qa"
+	fi
+
+	# install tmux plugin manager
+	local tpm_file="$HOME/.tmux/plugins/tpm"
+	if [[ ! -f "$tpm_file" || "$FRESH" == true ]]; then
+		echo "Installing Tmux Plugins"
+		mkdir -p "$HOME/.tmux/plugins"
+		git clone "https://github.com/tmux-plugins/tpm" "$tpm_file"
+	fi
+
+	return 0
+}
+
+setup_files() {
+	echo "Setting up files"
+
+	# setup bash
+	if [ ! -f "$HOME/.bashrc" ]; then
+		# echo "here"
+		cp "$DOTFILE_DIR/bash/bashrc.tmp.bash" "$HOME/.bashrc"
+	fi
+
+	if [[ ! -f "$HOME/.bash_profile" || "$FRESH" == true ]]; then
+		cp "$DOTFILE_DIR/bash/bash_profile.tmp.bash" "$HOME/.bash_profile"
+	elif ! grep -Fq "#LOADCHECK" "$HOME/.bash_profile"; then
+		cat "$DOTFILE_DIR/bash/bashloader" >> "$HOME/.bash_profile"
+	fi
+
+	# link tmux.conf
+	if [[ ! -f "$HOME/.tmux.conf" || "$FRESH" == true ]]; then
+		rm -f "$HOME/.tmux.conf"
+		ln -s "$DOTFILE_DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
+	fi
+
+	# link gitconfig
+	if [[ ! -f "$HOME/.gitconfig" || "$FRESH" == true ]]; then
+		rm -f "$HOME/.gitconfig"
+		ln -s "$DOTFILE_DIR/git/gitconfig" "$HOME/.gitconfig"
+	fi
+	
+	# link [n]vim config
+	if [[ "$SERVER" == true ]]; then
+		if [[ ! -d "$HOME/.vim" || "$FRESH" == true ]]; then
+			rm -rf "$HOME/.vim"
+			rm -rf "$HOME/.vimrc"
+			ln -s "$DOTFILE_DIR/vim/home" "$HOME/.vim/home"
+			ln -s "$DOTFILE_DIR/vim/vimrc" "$HOME/.vimrc"
+		fi
+	else
+		if [[ ! -d "$HOME/.config/nvim" || "$FRESH" == true ]]; then
+			rm -rf "$HOME/.config/nvim"
+			ln -s "$DOTFILE_DIR/nvim/config" "$HOME/.config/nvim"
+		fi
+	fi
+
+	return 0
+}
+
+install_software() {
+	if [[ "$#" -ne 1 ]]; then
+		echo "Not enough arguments to function: 'install_software'"
+		return 1;
+	fi
+
+	echo "Installing software"
+	case "$1" in
+		Mac)
+			echo "Mac OS"
+			;;
+		Ubuntu)
+			sudo apt update && sudo apt install -y \
+				curl \
+				git \
+				tmux
+
+			if [[ "$SERVER" == false ]]; then
+				sudo sudo apt install -y neovim
+			fi
+			;;
+		*)
+			echo "Unknown nix environment, skipping software install"
+			return 0;
+			;;
+	esac
+
+	if [[ "$SERVER" == false ]]; then
+		setup_node
+	fi
+
+	return 0
+}
+
+setup_node() {
+	if command -v node &> /dev/null; then
+		return 0
+	fi
+
+	echo "Installing Node Version Manager"
+
+	mkdir -p "$NVM_DIR"
+
+	curl -o- \
+		https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh \
+		| bash &> /dev/null
+
+	# load nvm to use now
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
+
+	echo "Installing NodeJs and NPM"
+	nvm install --lts &> /dev/null
+
+	return 0
+}
+
+get_nix_version() {
+	case "$(uname -s)" in
+
+		Darwin)
+			echo 'Mac'
+			;;
+
+		Linux)
+			if [ -f /etc/os-release ]; then
+				awk -F = '/^NAME=/ {print $2}' /etc/os-release | tr -d '"'
+			else
+				echo "Unknown"
+			fi
+			;;
+
+		CYGWIN*|MINGW32*|MSYS*|MINGW*)
+			echo 'Win'
+			;;
+
+		*)
+			echo 'Unknown' 
+			;;
+	esac
+}
+
+main "$@"

@@ -1,0 +1,22 @@
+[user]
+	name = Christopher Morton
+	email = sonro@gmx.com
+	signingkey = 61BC50EC0F0D2F89
+[core]
+	autocrlf = input
+	safecrlf = true
+	editor = vim
+[push]
+	default = simple
+	followTags = true
+[github]
+	user = sonro
+[merge]
+	ff = only
+[status]
+	showUntrackedFiles = all
+[transfer]
+	fsckobjects = true
+[commit]
+	gpgSign = true
+	
