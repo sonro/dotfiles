@@ -154,8 +154,6 @@ setup_files() {
 	else
 		if [[ ! -d "$HOME/.config/nvim" || "$FRESH" == true ]]; then
 			rm -rf "$HOME/.config/nvim"
-			rm -rf "$HOME/.vimrc"
-			cp "$DOTFILE_DIR/vim/vimrc" "$HOME/.vimrc"
 			ln -s "$DOTFILE_DIR/nvim/config" "$HOME/.config/nvim"
 		fi
 	fi
