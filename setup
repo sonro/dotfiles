@@ -111,6 +111,7 @@ install_plugins() {
 		echo "Installing Tmux Plugins"
 		mkdir -p "$HOME/.tmux/plugins"
 		git clone "https://github.com/tmux-plugins/tpm" "$tpm_dir"
+		eval "$tpm_dir/bin/install_plugins"
 	fi
 
 	return 0
