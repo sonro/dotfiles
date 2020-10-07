@@ -19,4 +19,4 @@
 	fsckobjects = true
 [commit]
 	gpgSign = true
-	
+
