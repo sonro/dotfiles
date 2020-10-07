@@ -148,7 +148,7 @@ setup_files() {
 		if [[ ! -d "$HOME/.vim" || "$FRESH" == true ]]; then
 			rm -rf "$HOME/.vim"
 			rm -rf "$HOME/.vimrc"
-			ln -s "$DOTFILE_DIR/vim/home" "$HOME/.vim/home"
+			ln -s "$DOTFILE_DIR/vim/home" "$HOME/.vim"
 			cp "$DOTFILE_DIR/vim/vimrc" "$HOME/.vimrc"
 		fi
 	else
