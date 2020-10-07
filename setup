@@ -107,11 +107,11 @@ install_plugins() {
 	fi
 
 	# install tmux plugin manager
-	local tpm_file="$HOME/.tmux/plugins/tpm"
-	if [[ ! -f "$tpm_file" || "$FRESH" == true ]]; then
+	local tpm_dir="$HOME/.tmux/plugins/tpm"
+	if [[ ! -d "$tpm_dir" || "$FRESH" == true ]]; then
 		echo "Installing Tmux Plugins"
 		mkdir -p "$HOME/.tmux/plugins"
-		git clone "https://github.com/tmux-plugins/tpm" "$tpm_file"
+		git clone "https://github.com/tmux-plugins/tpm" "$tpm_dir"
 	fi
 
 	return 0
