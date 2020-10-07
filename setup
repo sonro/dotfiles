@@ -149,11 +149,13 @@ setup_files() {
 			rm -rf "$HOME/.vim"
 			rm -rf "$HOME/.vimrc"
 			ln -s "$DOTFILE_DIR/vim/home" "$HOME/.vim/home"
-			ln -s "$DOTFILE_DIR/vim/vimrc" "$HOME/.vimrc"
+			cp "$DOTFILE_DIR/vim/vimrc" "$HOME/.vimrc"
 		fi
 	else
 		if [[ ! -d "$HOME/.config/nvim" || "$FRESH" == true ]]; then
 			rm -rf "$HOME/.config/nvim"
+			rm -rf "$HOME/.vimrc"
+			cp "$DOTFILE_DIR/vim/vimrc" "$HOME/.vimrc"
 			ln -s "$DOTFILE_DIR/nvim/config" "$HOME/.config/nvim"
 		fi
 	fi
