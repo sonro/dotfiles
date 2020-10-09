@@ -80,8 +80,7 @@ parse_args() {
 }
 
 install_plugins() {
-	local vim_plug_url="\
-		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+	local vim_plug_url="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
 	# set loaction of vim-plug install
 	local plug_local_file
@@ -100,18 +99,20 @@ install_plugins() {
 	# install vim plugins
 	echo "Installing Vim Plugins"
 	if [[ "$SERVER" == true ]]; then
-		vim -es -u "$DOTFILE/vim/vimrc" -i NONE -c "PlugInstall" -c "qa"	
+		vim -es -u "$DOTFILE/vim/vimrc" -i NONE -c "PlugInstall" -c "qa" || :
 	else
 		nvim -es -u "$DOTFILE_DIR/nvim/config/init.vim" \
-			-i NONE -c "PlugInstall" -c "qa"
+			-i NONE -c "PlugInstall" -c "qa" || :
 	fi
 
 	# install tmux plugin manager
 	local tpm_dir="$HOME/.tmux/plugins/tpm"
 	if [[ ! -d "$tpm_dir" || "$FRESH" == true ]]; then
 		echo "Installing Tmux Plugins"
+		rm -rf "$tpm_dir"
 		mkdir -p "$HOME/.tmux/plugins"
 		git clone "https://github.com/tmux-plugins/tpm" "$tpm_dir"
+		eval "$tpm_dir/bin/install_plugins"
 	fi
 
 	return 0
@@ -149,8 +150,8 @@ setup_files() {
 		if [[ ! -d "$HOME/.vim" || "$FRESH" == true ]]; then
 			rm -rf "$HOME/.vim"
 			rm -rf "$HOME/.vimrc"
-			ln -s "$DOTFILE_DIR/vim/home" "$HOME/.vim/home"
-			ln -s "$DOTFILE_DIR/vim/vimrc" "$HOME/.vimrc"
+			ln -s "$DOTFILE_DIR/vim/home" "$HOME/.vim"
+			cp "$DOTFILE_DIR/vim/vimrc" "$HOME/.vimrc"
 		fi
 	else
 		if [[ ! -d "$HOME/.config/nvim" || "$FRESH" == true ]]; then
