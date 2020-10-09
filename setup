@@ -180,7 +180,9 @@ install_software() {
 				tmux
 
 			if [[ "$SERVER" == false ]]; then
-				sudo sudo apt install -y neovim
+				sudo apt install -y \
+				php \
+				composer \
 			fi
 			;;
 		*)
@@ -191,7 +193,19 @@ install_software() {
 
 	if [[ "$SERVER" == false ]]; then
 		setup_node
+		setup_php_cs_fixer
 	fi
+
+	return 0
+}
+
+setup_php_cs_fixer() {
+	if command -v php-cs-fixer &> /dev/null; then
+		return 0
+	fi
+	
+	echo "Installing Php CS Fixer"
+	composer global require friendsofphp/php-cs-fixer &> /dev/null
 
 	return 0
 }

@@ -35,6 +35,8 @@ Plug 'junegunn/fzf.vim'
 if has('nvim')
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
+Plug 'phpactor/phpactor', {'for': 'php', 'branch': 'master', 'do': 'composer install --no-dev -o'}
+Plug 'stephpy/vim-php-cs-fixer'
 
 " Syntactic language support
 Plug 'cespare/vim-toml'
@@ -64,11 +66,6 @@ let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 syntax on
 
-" Coc
-if has('nvim')
-	let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-phpls', 'coc-prettier', 'coc-rust-analyzer', 'coc-tsserver']
-endif
-
 " Plugin settings
 let g:secure_modelines_allowed_items = [
                 \ "textwidth",   "tw",
@@ -82,6 +79,29 @@ let g:secure_modelines_allowed_items = [
                 \ "rightleft",   "rl",   "norightleft", "norl",
                 \ "colorcolumn"
                 \ ]
+
+" Coc
+if has('nvim')
+	let g:coc_global_extensions = [
+				\ 'coc-emmet',
+				\ 'coc-css',
+				\ 'coc-html',
+				\ 'coc-json',
+				\ 'coc-phpactor',
+				\ 'coc-prettier',
+				\ 'coc-rust-analyzer',
+				\ 'coc-tsserver'
+				\]
+endif
+
+" Phpactor setup
+if has('nvim')
+	let g:phpactor_executable = '~/.config/nvim/plugged/phpactor/bin/phpactor'
+else
+	let g:phpactor_executable = '~/.vim/plugged/phpactor/bin/phpactor'
+endif
+let g:php_cs_fixer_rules = "@Symfony"
+
 
 " Airline
 let g:airline#extensions#whitespace#enabled = 0
@@ -325,6 +345,9 @@ nnoremap k gk
 
 " Open terminal
 nnoremap <leader>t :new term://bash<cr>i
+
+" phpactor mappings
+nnoremap <m-m> :call phpactor#ContextMenu()<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has('nvim')
