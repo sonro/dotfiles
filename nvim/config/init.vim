@@ -64,6 +64,7 @@ set background=dark
 let base16colorspace=256
 let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
+set termguicolors
 syntax on
 
 " Plugin settings
@@ -95,11 +96,11 @@ if has('nvim')
 endif
 
 " Phpactor setup
-if has('nvim')
-	let g:phpactor_executable = '~/.config/nvim/plugged/phpactor/bin/phpactor'
-else
-	let g:phpactor_executable = '~/.vim/plugged/phpactor/bin/phpactor'
-endif
+" if has('nvim')
+" 	let g:phpactor_executable = '~/.config/nvim/plugged/phpactor/bin/phpactor'
+" else
+" 	let g:phpactor_executable = '~/.vim/plugged/phpactor/bin/phpactor'
+" endif
 let g:php_cs_fixer_rules = "@Symfony"
 
 

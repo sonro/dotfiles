@@ -103,6 +103,10 @@ install_plugins() {
 	else
 		nvim -es -u "$DOTFILE_DIR/nvim/config/init.vim" \
 			-i NONE -c "PlugInstall" -c "qa" || :
+
+		sudo ln -s \
+			"$DOTFILE_DIR/nvim/config/plugged/phpactor/bin/phpactor" \
+			/usr/local/bin/phpactor
 	fi
 
 	# install tmux plugin manager
@@ -183,7 +187,11 @@ install_software() {
 			if [[ "$SERVER" == false ]]; then
 				sudo apt install -y \
 				php \
-				composer \
+				php-xml \
+				php-dom \
+				php-curl \
+				php-mysql \
+				composer
 			fi
 			;;
 		*)
