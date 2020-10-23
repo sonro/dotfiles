@@ -108,6 +108,8 @@ let g:php_cs_fixer_rules = "@Symfony"
 " Airline
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'default'
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -293,8 +295,8 @@ inoremap jk <esc>
 vnoremap jk <esc>
 
 " Ctrl+h to stop searching
-vnoremap <C-h> :nohlsearch<cr>
-nnoremap <C-h> :nohlsearch<cr>
+vnoremap <leader>h :nohlsearch<cr>
+nnoremap <leader>h :nohlsearch<cr>
 
 " Suspend with Ctrl+f
 inoremap <C-f> :sus<cr>
@@ -351,10 +353,23 @@ nnoremap j gj
 nnoremap k gk
 
 " Open terminal
-nnoremap <leader>t :new term://bash<cr>i
+nnoremap <leader>n :new term://bash<cr>i
 
 " phpactor mappings
 nnoremap <m-m> :call phpactor#ContextMenu()<cr>
+
+" move between splits
+noremap <c-j> <c-w>j
+noremap <c-k> <c-w>k
+noremap <c-h> <c-w>h
+noremap <c-l> <c-w>l
+
+" open splits
+nnoremap <leader>u :split<CR>
+nnoremap <leader>vu :vsplit<CR>
+
+" open splits
+nnoremap <leader>tn :tabnew<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has('nvim')
