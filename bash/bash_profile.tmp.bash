@@ -8,7 +8,7 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 if [ -d "$HOME/xDev/bin" ] ; then
-    PATH="$HOME/x/Dev/bin:$PATH"
+    PATH="$HOME/xDev/bin:$PATH"
 fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
