@@ -86,6 +86,7 @@ if has('nvim')
 	let g:coc_global_extensions = [
 				\ 'coc-emmet',
 				\ 'coc-css',
+				\ 'coc-clangd',
 				\ 'coc-html',
 				\ 'coc-json',
 				\ 'coc-phpactor',
@@ -137,7 +138,7 @@ map <C-p> :Files<CR>
 nmap <leader>; :Buffers<CR>
  
 " Quick-save
-nmap <leader>w :w<CR>
+nmap <C-s> :w<CR>
 
 " open vimrc in new tab
 nnoremap <leader>ev :tabedit ~/.dotfiles/nvim/config/init.vim<CR>
@@ -248,6 +249,9 @@ cnoremap %s/ %sm/
 " set up function braces
 inoremap {<CR> {<CR>}<esc>O
 
+" stop netrw keeping buffers around
+let g:netrw_fastbrowse=0
+
 " =============================================================================
 " # GUI settings
 " =============================================================================
@@ -282,7 +286,7 @@ set listchars=nbsp:¬,extends:»,precedes:«,trail:•
 nnoremap ; :
 
 " close buffer
-nnoremap <leader>q :q<cr>
+nnoremap <leader>q :bd<cr>
 
 " exit insert/visual mode with jk
 inoremap jk <esc>
@@ -301,11 +305,11 @@ nnoremap <C-f> :sus<cr>
 map H ^
 map L $
 
-" Neat X clipboard integration
-" ,p will paste clipboard into buffer
-" ,c will copy entire buffer into clipboard
-noremap <leader>p :read !xsel --clipboard --output<cr>
-noremap <leader>c :w !xsel -ib<cr><cr>
+" " Neat X clipboard integration
+" " ,p will paste clipboard into buffer
+" " ,c will copy entire buffer into clipboard
+" noremap <leader>p :read !xsel --clipboard --output<cr>
+" noremap <leader>c :w !xsel -ib<cr><cr>
 
 " <leader>s for Rg search
 noremap <leader>s :Rg
