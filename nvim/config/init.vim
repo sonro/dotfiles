@@ -16,6 +16,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-vinegar'
+Plug 'jiangmiao/auto-pairs'
 
 " GUI enhancements
 Plug 'vim-airline/vim-airline'
@@ -249,7 +250,7 @@ nnoremap / /\v
 cnoremap %s/ %sm/
 
 " set up function braces
-inoremap {<CR> {<CR>}<esc>O
+" inoremap {<CR> {<CR>}<esc>O
 
 " stop netrw keeping buffers around
 let g:netrw_fastbrowse=0
