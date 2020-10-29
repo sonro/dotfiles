@@ -90,7 +90,7 @@ if has('nvim')
 				\ 'coc-clangd',
 				\ 'coc-html',
 				\ 'coc-json',
-				\ 'coc-phpactor',
+				\ 'coc-phpls',
 				\ 'coc-prettier',
 				\ 'coc-rust-analyzer',
 				\ 'coc-tsserver'
