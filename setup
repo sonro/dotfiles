@@ -164,6 +164,11 @@ setup_files() {
 		fi
 	fi
 
+	# create xDev directory
+	if [[ "$SERVER" == false ]]; then
+		mkdir -p "$HOME/xDev"
+	fi
+
 	return 0
 }
 
@@ -203,9 +208,14 @@ install_software() {
 	if [[ "$SERVER" == false ]]; then
 		setup_node
 		setup_php_cs_fixer
+		setup_scriptbin
 	fi
 
 	return 0
+}
+
+setup_scriptbin() {
+	git clone "git@github.com:sonro/scriptbin.git" "$HOME/xDev/bin"
 }
 
 setup_php_cs_fixer() {
