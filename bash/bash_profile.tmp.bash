@@ -14,10 +14,10 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-export GPG_TTY=$(tty)
-export EDITOR=vi
-export VISUAL=vi
-
 if [ -f "$HOME/.dotfiles/bash/common.bash" ]; then
 	source "$HOME/.dotfiles/bash/common.bash" ; #LOADCHECK
 fi 
+
+export EDITOR=vi
+export VISUAL=vi
+
