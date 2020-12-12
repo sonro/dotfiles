@@ -195,8 +195,7 @@ install_software() {
 				php-xml \
 				php-dom \
 				php-curl \
-				php-mysql \
-				composer
+				php-mysql
 			fi
 			;;
 		*)
@@ -207,12 +206,21 @@ install_software() {
 
 	if [[ "$SERVER" == false ]]; then
 		setup_node
+		setup_composer
 		setup_php_cs_fixer
 		setup_rust
 		setup_scriptbin
 	fi
 
 	return 0
+}
+
+setup_composer() {
+	curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
+	sudo php \
+		/tmp/composer-setup.php \
+		--install-dir=/usr/local/bin \
+		--filename=composer
 }
 
 setup_scriptbin() {
