@@ -6,6 +6,7 @@
 	autocrlf = input
 	safecrlf = true
 	editor = vim
+	excludesFile = ~/.gitignore
 [push]
 	default = simple
 	followTags = true

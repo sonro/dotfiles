@@ -1,5 +1,6 @@
-export PATH="$HOME/.config/composer/vendor/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
+PATH="$HOME/.config/composer/vendor/bin:$PATH"
+PATH="$HOME/.cargo/bin:$PATH"
+export PATH
 
 export GPG_TTY=$(tty)
 

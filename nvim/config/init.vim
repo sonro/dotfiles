@@ -37,7 +37,7 @@ if has('nvim')
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 Plug 'phpactor/phpactor', {'for': 'php', 'branch': 'master', 'do': 'composer install --no-dev -o'}
-Plug 'stephpy/vim-php-cs-fixer'
+" Plug 'stephpy/vim-php-cs-fixer'
 
 " Syntactic language support
 Plug 'cespare/vim-toml'
@@ -47,6 +47,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'StanAngeloff/php.vim'
+Plug 'lumiliet/vim-twig'
 
 call plug#end()
 
@@ -103,8 +104,13 @@ endif
 " else
 " 	let g:phpactor_executable = '~/.vim/plugged/phpactor/bin/phpactor'
 " endif
-let g:php_cs_fixer_rules = "@Symfony"
 
+" php-cs-fixer
+" let g:php_cs_fixer_rules = "@Symfony"
+nnoremap <leader>pcf :!php-cs-fixer fix -n --rules "@Symfony" "%:p" &> /dev/null<Enter>
+
+" Prettier
+command! -nargs=0 Prettier :CocCommand prettier.formatFile 
 
 " Airline
 let g:airline#extensions#whitespace#enabled = 0
