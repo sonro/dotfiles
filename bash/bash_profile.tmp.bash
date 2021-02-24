@@ -1,21 +1,21 @@
 # include .bashrc if it exists
 if [ -f "$HOME/.bashrc" ]; then
-. "$HOME/.bashrc"
+	source "$HOME/.bashrc"
 fi
 
 # set PATH so it includes user's private bins if they exist
 if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+    export PATH="$HOME/bin:$PATH"
 fi
 if [ -d "$HOME/xDev/bin" ] ; then
-    PATH="$HOME/xDev/bin:$PATH"
+    export PATH="$HOME/xDev/bin:$PATH"
 fi
 if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
+    export PATH="$HOME/.local/bin:$PATH"
 fi
 
 if [ -f "$HOME/.dotfiles/bash/common.bash" ]; then
-	source "$HOME/.dotfiles/bash/common.bash" ; #LOADCHECK
+	source "$HOME/.dotfiles/bash/common.bash" #LOADCHECK
 fi 
 
 export EDITOR=vi

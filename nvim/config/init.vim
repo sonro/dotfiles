@@ -110,7 +110,9 @@ endif
 nnoremap <leader>pcf :!php-cs-fixer fix -n --rules "@Symfony" "%:p" &> /dev/null<Enter>
 
 " Prettier
-command! -nargs=0 Prettier :CocCommand prettier.formatFile 
+if has('nvim')
+	command! -nargs=0 Prettier :CocCommand prettier.formatFile 
+endif
 
 " Airline
 let g:airline#extensions#whitespace#enabled = 0
@@ -234,7 +236,7 @@ set formatoptions+=b " auto-wrap in insert mode, and do not wrap old long lines
 " Remove auto // comments in 'c'
 augroup comments
     autocmd!
-    autocmd FileType c,cpp,php,rust setlocal comments-=:// comments+=f://
+    autocmd FileType c,cpp,php,rust,js setlocal comments-=:// comments+=f://
 augroup END
 
 " Proper search

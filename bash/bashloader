@@ -1,3 +1,3 @@
 if [ -f "$HOME/.dotfiles/bash/common.bash" ]; then
-	source "$HOME/.dotfiles/bash/common.bash" ; #LOADCHECK
+	source "$HOME/.dotfiles/bash/common.bash" #LOADCHECK
 fi 
