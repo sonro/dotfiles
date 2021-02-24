@@ -41,7 +41,8 @@ main() {
 	fi
 
 	if [[ "$EXPLICIT" == false || "$INSTALL" == true ]]; then
-		local os="$(get_nix_version)"
+		source "$DOTFILE_DIR/setup-src/nixversion.bash"
+		local os="$(nix_version)"
 		install_software "$os"
 	fi
 
@@ -263,31 +264,6 @@ setup_node() {
 	nvm install --lts &> /dev/null
 
 	return 0
-}
-
-get_nix_version() {
-	case "$(uname -s)" in
-
-		Darwin)
-			echo 'Mac'
-			;;
-
-		Linux)
-			if [ -f /etc/os-release ]; then
-				awk -F = '/^NAME=/ {print $2}' /etc/os-release | tr -d '"'
-			else
-				echo "Unknown"
-			fi
-			;;
-
-		CYGWIN*|MINGW32*|MSYS*|MINGW*)
-			echo 'Win'
-			;;
-
-		*)
-			echo 'Unknown' 
-			;;
-	esac
 }
 
 main "$@"
