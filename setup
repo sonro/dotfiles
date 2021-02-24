@@ -23,7 +23,6 @@ If any combination of these flags are set: only those functions will run
 
 # Config
 DOTFILE_DIR="$HOME/.dotfiles"
-NVM_DIR="$HOME/.nvm"
 
 # Options
 FRESH=false
@@ -41,9 +40,8 @@ main() {
 	fi
 
 	if [[ "$EXPLICIT" == false || "$INSTALL" == true ]]; then
-		source "$DOTFILE_DIR/setup-src/nixversion.bash"
-		local os="$(nix_version)"
-		install_software "$os"
+		source "$DOTFILE_DIR/setup-src/installsoftware.bash"
+		install_software "$SERVER"
 	fi
 
 	if [[ "$EXPLICIT" == false || "$PLUGINS" == true ]]; then
@@ -169,99 +167,6 @@ setup_files() {
 	if [[ "$SERVER" == false ]]; then
 		mkdir -p "$HOME/xDev"
 	fi
-
-	return 0
-}
-
-install_software() {
-	if [[ "$#" -ne 1 ]]; then
-		echo "Not enough arguments to function: 'install_software'"
-		return 1;
-	fi
-
-	echo "Installing software"
-	case "$1" in
-		Mac)
-			echo "Mac OS"
-			;;
-		Ubuntu)
-			sudo apt update && sudo apt install -y \
-				curl \
-				git \
-				tmux
-
-			if [[ "$SERVER" == false ]]; then
-				sudo apt install -y \
-				php \
-				php-xml \
-				php-dom \
-				php-curl \
-				php-mysql
-			fi
-			;;
-		*)
-			echo "Unknown nix environment, skipping software install"
-			return 0;
-			;;
-	esac
-
-	if [[ "$SERVER" == false ]]; then
-		setup_node
-		setup_composer
-		setup_php_cs_fixer
-		setup_rust
-		setup_scriptbin
-	fi
-
-	return 0
-}
-
-setup_composer() {
-	curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
-	sudo php \
-		/tmp/composer-setup.php \
-		--install-dir=/usr/local/bin \
-		--filename=composer
-}
-
-setup_scriptbin() {
-	git clone "git@github.com:sonro/scriptbin.git" "$HOME/xDev/bin"
-}
-
-setup_rust() {
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
-		| sh -s -- -y --no-modify-path
-}
-
-setup_php_cs_fixer() {
-	if command -v php-cs-fixer &> /dev/null; then
-		return 0
-	fi
-	
-	echo "Installing Php CS Fixer"
-	composer global require friendsofphp/php-cs-fixer &> /dev/null
-
-	return 0
-}
-
-setup_node() {
-	if command -v node &> /dev/null; then
-		return 0
-	fi
-
-	echo "Installing Node Version Manager"
-
-	mkdir -p "$NVM_DIR"
-
-	curl -o- \
-		https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh \
-		| bash &> /dev/null
-
-	# load nvm to use now
-	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
-
-	echo "Installing NodeJs and NPM"
-	nvm install --lts &> /dev/null
 
 	return 0
 }
