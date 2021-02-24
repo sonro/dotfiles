@@ -41,7 +41,7 @@ main() {
 
 	if [[ "$EXPLICIT" == false || "$INSTALL" == true ]]; then
 		source "$DOTFILE_DIR/setup-src/installsoftware.bash"
-		install_software "$SERVER"
+		install_software "$SERVER" "$DOTFILE_DIR"
 	fi
 
 	if [[ "$EXPLICIT" == false || "$PLUGINS" == true ]]; then

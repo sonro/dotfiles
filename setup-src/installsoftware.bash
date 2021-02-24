@@ -1,12 +1,13 @@
 install_software() {
 	if [[ "$#" -ne 1 ]]; then
-		echo "function 'install_software' has parameters: server"
+		echo "function 'install_software' has parameters: server dotfile_dir"
 		return 1;
 	fi
 	
 	local server="$1"
+	local dotfile_dir="$1"
 
-	source "$DOTFILE_DIR/setup-src/nixversion.bash"
+	source "$dotfile_dir/setup-src/nixversion.bash"
 	local os="$(nix_version)"
 
 	echo "Installing software"
