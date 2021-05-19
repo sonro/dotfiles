@@ -48,6 +48,7 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'StanAngeloff/php.vim'
 Plug 'lumiliet/vim-twig'
+Plug 'pangloss/vim-javascript'
 
 call plug#end()
 
@@ -107,7 +108,7 @@ endif
 
 " php-cs-fixer
 " let g:php_cs_fixer_rules = "@Symfony"
-nnoremap <leader>pcf :!php-cs-fixer fix -n --rules "@Symfony" "%:p" &> /dev/null<Enter>
+nnoremap <leader>pcf :!php-cs-fixer fix -n --rules '{"@Symfony": true, "php_unit_method_casing": {"case": "snake_case"}}' "%:p" &> /dev/null<Enter>
 
 " Prettier
 if has('nvim')
@@ -236,7 +237,7 @@ set formatoptions+=b " auto-wrap in insert mode, and do not wrap old long lines
 " Remove auto // comments in 'c'
 augroup comments
     autocmd!
-    autocmd FileType c,cpp,php,rust,js setlocal comments-=:// comments+=f://
+    autocmd FileType c,cpp,php,rust,javascript setlocal comments-=:// comments+=f://
 augroup END
 
 " Proper search

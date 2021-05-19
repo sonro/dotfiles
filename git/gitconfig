@@ -20,4 +20,6 @@
 	fsckobjects = true
 [commit]
 	gpgSign = true
+[transfer]
+	fsckObjects = false
 
