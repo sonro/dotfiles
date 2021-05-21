@@ -36,7 +36,8 @@ main() {
 	parse_args "$@"
 
 	if [[ "$EXPLICIT" == false || "$FILES" == true ]]; then
-		setup_files
+		source "$DOTFILE_DIR/setup-src/setupfiles.bash"
+		setup_files "$SERVER" "$DOTFILE_DIR" "$FRESH"
 	fi
 
 	if [[ "$EXPLICIT" == false || "$INSTALL" == true ]]; then
@@ -116,56 +117,6 @@ install_plugins() {
 		mkdir -p "$HOME/.tmux/plugins"
 		git clone "https://github.com/tmux-plugins/tpm" "$tpm_dir"
 		eval "$tpm_dir/bin/install_plugins"
-	fi
-
-	return 0
-}
-
-setup_files() {
-	echo "Setting up files"
-
-	# setup bash
-	if [ ! -f "$HOME/.bashrc" ]; then
-		# echo "here"
-		cp "$DOTFILE_DIR/bash/bashrc.tmp.bash" "$HOME/.bashrc"
-	fi
-
-	if [[ ! -f "$HOME/.bash_profile" || "$FRESH" == true ]]; then
-		cp "$DOTFILE_DIR/bash/bash_profile.tmp.bash" "$HOME/.bash_profile"
-	elif ! grep -Fq "#LOADCHECK" "$HOME/.bash_profile"; then
-		cat "$DOTFILE_DIR/bash/bashloader" >> "$HOME/.bash_profile"
-	fi
-
-	# link tmux.conf
-	if [[ ! -f "$HOME/.tmux.conf" || "$FRESH" == true ]]; then
-		rm -f "$HOME/.tmux.conf"
-		ln -s "$DOTFILE_DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
-	fi
-
-	# link gitconfig
-	if [[ ! -f "$HOME/.gitconfig" || "$FRESH" == true ]]; then
-		rm -f "$HOME/.gitconfig"
-		ln -s "$DOTFILE_DIR/git/gitconfig" "$HOME/.gitconfig"
-	fi
-	
-	# link [n]vim config
-	if [[ "$SERVER" == true ]]; then
-		if [[ ! -d "$HOME/.vim" || "$FRESH" == true ]]; then
-			rm -rf "$HOME/.vim"
-			rm -rf "$HOME/.vimrc"
-			ln -s "$DOTFILE_DIR/vim/home" "$HOME/.vim"
-			cp "$DOTFILE_DIR/vim/vimrc" "$HOME/.vimrc"
-		fi
-	else
-		if [[ ! -d "$HOME/.config/nvim" || "$FRESH" == true ]]; then
-			rm -rf "$HOME/.config/nvim"
-			ln -s "$DOTFILE_DIR/nvim/config" "$HOME/.config/nvim"
-		fi
-	fi
-
-	# create xDev directory
-	if [[ "$SERVER" == false ]]; then
-		mkdir -p "$HOME/xDev"
 	fi
 
 	return 0
