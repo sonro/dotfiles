@@ -46,7 +46,8 @@ main() {
 	fi
 
 	if [[ "$EXPLICIT" == false || "$PLUGINS" == true ]]; then
-		install_plugins
+		source "$DOTFILE_DIR/setup-src/installplugins.bash"
+		install_plugins "$SERVER" "$DOTFILE_DIR" "$FRESH"
 	fi
 
 	return 0
@@ -75,49 +76,6 @@ parse_args() {
 				;;
 		esac
 	done
-
-	return 0
-}
-
-install_plugins() {
-	local vim_plug_url="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-
-	# set loaction of vim-plug install
-	local plug_local_file
-	if [[ "$SERVER" == true ]]; then
-		plug_local_file="$DOTFILE_DIR/vim/home/autoload/plug.vim"
-	else
-		plug_local_file="$HOME/.local/share/nvim/site/autoload/plug.vim"
-	fi
-
-	# install vim-plug
-	if [[ ! -f "$plug_local_file" || "$FRESH" == true ]]; then
-		echo "Installing VimPlug"
-		curl -fLo "$plug_local_file" --create-dirs "$vim_plug_url"
-	fi
-
-	# install vim plugins
-	echo "Installing Vim Plugins"
-	if [[ "$SERVER" == true ]]; then
-		vim -es -u "$DOTFILE/vim/vimrc" -i NONE -c "PlugInstall" -c "qa" || :
-	else
-		nvim -es -u "$DOTFILE_DIR/nvim/config/init.vim" \
-			-i NONE -c "PlugInstall" -c "qa" || :
-
-		sudo ln -s \
-			"$DOTFILE_DIR/nvim/config/plugged/phpactor/bin/phpactor" \
-			/usr/local/bin/phpactor
-	fi
-
-	# install tmux plugin manager
-	local tpm_dir="$HOME/.tmux/plugins/tpm"
-	if [[ ! -d "$tpm_dir" || "$FRESH" == true ]]; then
-		echo "Installing Tmux Plugins"
-		rm -rf "$tpm_dir"
-		mkdir -p "$HOME/.tmux/plugins"
-		git clone "https://github.com/tmux-plugins/tpm" "$tpm_dir"
-		eval "$tpm_dir/bin/install_plugins"
-	fi
 
 	return 0
 }
