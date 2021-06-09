@@ -1,7 +1,14 @@
 install_dev_linux() {
+	if [[ "$#" -ne 1 ]]; then
+		echo "function 'install_dev_linux' has parameters: fresh"
+		return 1;
+	fi
+
+	local fresh="$1"
+
 	install_composer_linux
 	install_php_cs_fixer_linux
-	install_my_scripts_linux
+	install_my_scripts_linux "$fresh"
 	install_rust_linux
 	install_node_linux
 }
@@ -27,8 +34,21 @@ install_php_cs_fixer_linux() {
 }
 
 install_my_scripts_linux() {
+	if [[ "$#" -ne 1 ]]; then
+		echo "function 'install_my_scripts_linux' has parameters: fresh"
+		return 1;
+	fi
+
+	local fresh="$1"
+
+	local bin="$HOME/xDev/bin"
+
 	mkdir -p "$HOME/xDev"
-	git clone "https://github.com/sonro/scriptbin.git" "$HOME/xDev/bin"
+
+	if [[ ! -d "$bin" || "$fresh" == true ]]; then
+		rm -rf "$bin"
+		git clone "https://github.com/sonro/scriptbin.git" "$bin"
+	fi
 }
 
 install_rust_linux() {

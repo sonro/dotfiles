@@ -42,7 +42,7 @@ main() {
 
 	if [[ "$EXPLICIT" == false || "$INSTALL" == true ]]; then
 		source "$DOTFILE_DIR/setup-src/installsoftware.bash"
-		install_software "$SERVER" "$DOTFILE_DIR"
+		install_software "$SERVER" "$DOTFILE_DIR" "$FRESH"
 	fi
 
 	if [[ "$EXPLICIT" == false || "$PLUGINS" == true ]]; then
