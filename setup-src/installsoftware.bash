@@ -22,7 +22,7 @@ install_software() {
 
 install_basic() {
 	if [[ "$#" -ne 1 ]]; then
-		echo "function 'install_basic_packages' has parameters: os"
+		echo "function 'install_basic' has parameters: os"
 		return 1;
 	fi
 
@@ -45,7 +45,7 @@ install_basic() {
 
 install_dev() {
 	if [[ "$#" -ne 1 ]]; then
-		echo "function 'install_development_packages' has parameters: os"
+		echo "function 'install_dev' has parameters: os"
 		return 1;
 	fi
 

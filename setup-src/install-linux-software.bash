@@ -27,7 +27,8 @@ install_php_cs_fixer_linux() {
 }
 
 install_my_scripts_linux() {
-	git clone "git@github.com:sonro/scriptbin.git" "$HOME/xDev/bin"
+	mkdir -p "$HOME/xDev"
+	git clone "https://github.com/sonro/scriptbin.git" "$HOME/xDev/bin"
 }
 
 install_rust_linux() {
