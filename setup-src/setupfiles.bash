@@ -22,7 +22,7 @@ setup_files() {
 }
 
 setup_bash_files() {
-	if [[ "$#" -ne 3 ]]; then
+	if [[ "$#" -ne 2 ]]; then
 		echo "function 'setup_bash_files' has parameters: dotfile_dir fresh"
 		return 1;
 	fi
@@ -42,7 +42,7 @@ setup_bash_files() {
 }
 
 setup_tmux_files() {
-	if [[ "$#" -ne 3 ]]; then
+	if [[ "$#" -ne 2 ]]; then
 		echo "function 'setup_tmux_files' has parameters: dotfile_dir fresh"
 		return 1;
 	fi
@@ -57,7 +57,7 @@ setup_tmux_files() {
 }
 
 setup_git_files() {
-	if [[ "$#" -ne 3 ]]; then
+	if [[ "$#" -ne 2 ]]; then
 		echo "function 'setup_git_files' has parameters: dotfile_dir fresh"
 		return 1;
 	fi
