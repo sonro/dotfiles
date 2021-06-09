@@ -12,7 +12,7 @@ install_dev_ubuntu() {
 
 install_php_ubuntu() {
 	sudo apt install -y software-properties-common
-	sudo add-apt-repository ppa:ondrej/php
+	sudo add-apt-repository -y ppa:ondrej/php
 	sudo apt update
 	sudo apt install -y \
 		php8.0
