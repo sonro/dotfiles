@@ -91,6 +91,7 @@ setup_vim_files() {
 	else
 		if [[ ! -d "$HOME/.config/nvim" || "$fresh" == true ]]; then
 			rm -rf "$HOME/.config/nvim"
+			mkdir -p "$HOME/.config"
 			ln -s "$dotfile_dir/nvim/config" "$HOME/.config/nvim"
 		fi
 	fi
