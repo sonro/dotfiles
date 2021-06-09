@@ -6,8 +6,13 @@ install_basic_ubuntu() {
 }
 
 install_dev_ubuntu() {
+	install_neovim_ubuntu
 	install_php_ubuntu
 	install_php_extentions_ubuntu
+}
+
+install_neovim_ubuntu() {
+	sudo apt install -y neovim
 }
 
 install_php_ubuntu() {
