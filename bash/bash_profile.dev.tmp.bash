@@ -18,6 +18,6 @@ if [ -f "$HOME/.dotfiles/bash/common.bash" ]; then
 	source "$HOME/.dotfiles/bash/common.bash" #LOADCHECK
 fi 
 
-export EDITOR=vi
-export VISUAL=vi
+export EDITOR=nvim
+export VISUAL=nvim
 

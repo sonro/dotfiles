@@ -10,7 +10,7 @@ setup_files() {
 
 	echo "Setting up files"
 
-	setup_bash_files "$dotfile_dir" "$fresh"
+	setup_bash_files  "$server" "$dotfile_dir" "$fresh"
 
 	setup_tmux_files "$dotfile_dir" "$fresh"
 
@@ -22,20 +22,25 @@ setup_files() {
 }
 
 setup_bash_files() {
-	if [[ "$#" -ne 2 ]]; then
-		echo "function 'setup_bash_files' has parameters: dotfile_dir fresh"
+	if [[ "$#" -ne 3 ]]; then
+		echo "function 'setup_bash_files' has parameters: server dotfile_dir fresh"
 		return 1;
 	fi
 
-	local dotfile_dir="$1"
-	local fresh="$2"
+	local server="$1"
+	local dotfile_dir="$2"
+	local fresh="$3"
 
 	if [ ! -f "$HOME/.bashrc" ]; then
 		cp "$dotfile_dir/bash/bashrc.tmp.bash" "$HOME/.bashrc"
 	fi
 
 	if [[ ! -f "$HOME/.bash_profile" || "$fresh" == true ]]; then
-		cp "$dotfile_dir/bash/bash_profile.tmp.bash" "$HOME/.bash_profile"
+		if [[ "$server" == true ]]; then
+			cp "$dotfile_dir/bash/bash_profile.server.tmp.bash" "$HOME/.bash_profile"
+		else
+			cp "$dotfile_dir/bash/bash_profile.dev.tmp.bash" "$HOME/.bash_profile"
+		fi
 	elif ! grep -Fq "#LOADCHECK" "$HOME/.bash_profile"; then
 		cat "$dotfile_dir/bash/bashloader" >> "$HOME/.bash_profile"
 	fi
