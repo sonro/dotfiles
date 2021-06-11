@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -e
+
+HELP="\
+KEYGEN
+=============
+sonro <sonro@gmx.com>
+
+Generate ssh key pair on *nix machines
+
+USAGE: keygen
+"
+
+# Config
+DOTFILE_DIR="$HOME/.dotfiles"
+
+main() {
+	source "$DOTFILE_DIR/setup-src/nixversion.bash"
+	local os="$(nix_version)"
+
+	case "$os" in
+		Mac)
+			echo "Unimplemented Mac env"
+			;;
+		Ubuntu)
+			keygen_ubuntu
+			;;
+		*)
+			echo "Unimplemented *nix env"
+			;;
+	esac
+}
+
+keygen_ubuntu() {
+	ssh-keygen -t ed25519 -a 100
+}
+
+main "$@"

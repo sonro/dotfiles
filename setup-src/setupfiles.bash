@@ -19,6 +19,8 @@ setup_files() {
 	setup_vim_files "$server" "$dotfile_dir" "$fresh"
 
 	setup_dev_files "$server"
+
+	setup_ssh_files "$dotfile_dir"
 }
 
 setup_bash_files() {
@@ -118,3 +120,16 @@ setup_dev_files() {
 	return 0
 }
 
+setup_ssh_files() {
+	if [[ "$#" -ne 1 ]]; then
+		echo "function 'setup_ssh_files' has parameters: dotfile_dir"
+		return 1;
+	fi
+	
+	local dotfile_dir="$1"
+
+	if [ ! -f "$HOME/.ssh/config" ]; then
+		mkdir -p "$HOME/.ssh"
+		cp "$dotfile_dir/ssh/config.tmp" "$HOME/.ssh/config"
+	fi
+}
