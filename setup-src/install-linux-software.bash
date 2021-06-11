@@ -11,6 +11,7 @@ install_dev_linux() {
 	install_my_scripts_linux "$fresh"
 	install_rust_linux
 	install_node_linux
+	install_rust_utils
 }
 
 install_composer_linux() {
@@ -78,5 +79,16 @@ install_node_linux() {
 	nvm install --lts &> /dev/null
 
 	return 0
+}
+
+install_rust_utils() {
+	cargo install cargo-update
+	cargo install sd
+	cargo install fd-find
+	cargo install ripgrep
+	cargo install grex
+	cargo install exa
+	cargo install --locked bat
+	cargo install --locked bottom
 }
 
