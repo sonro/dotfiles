@@ -29,6 +29,7 @@ main() {
 			echo "Unimplemented *nix env"
 			;;
 	esac
+	cat "$HOME/.ssh/*.pub"
 }
 
 keygen_ubuntu() {
