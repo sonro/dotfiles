@@ -49,6 +49,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'StanAngeloff/php.vim'
 Plug 'lumiliet/vim-twig'
 Plug 'pangloss/vim-javascript'
+Plug 'ziglang/zig.vim'
 
 call plug#end()
 
@@ -96,6 +97,7 @@ if has('nvim')
 				\ 'coc-prettier',
 				\ 'coc-python',
 				\ 'coc-rust-analyzer',
+				\ 'coc-zig',
 				\ 'coc-tsserver'
 				\]
 endif
