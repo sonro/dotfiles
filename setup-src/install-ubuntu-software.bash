@@ -1,5 +1,5 @@
 install_basic_ubuntu() {
-	sudo apt update && sudo apt upgrade && sudo apt install -y \
+	sudo apt update && sudo apt upgrade -y && sudo apt install -y \
 		curl \
 		git \
 		tmux
