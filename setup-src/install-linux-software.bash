@@ -46,6 +46,8 @@ install_my_scripts_linux() {
 
 	mkdir -p "$HOME/xDev"
 
+	echo "Installing personal scripts"
+
 	if [[ ! -d "$bin" || "$fresh" == true ]]; then
 		rm -rf "$bin"
 		git clone "https://github.com/sonro/scriptbin.git" "$bin"
@@ -82,13 +84,21 @@ install_node_linux() {
 }
 
 install_rust_utils() {
-	cargo install cargo-update
-	cargo install sd
-	cargo install fd-find
-	cargo install ripgrep
-	cargo install grex
-	cargo install exa
-	cargo install --locked bat
-	cargo install --locked bottom
+	local cargo="$HOME/.cargo/bin/cargo"
+
+	echo "Installing rust utilities"
+
+	eval $cargo install cargo-update
+	eval $cargo install cargo-whatfeatures
+	eval $cargo install cargo-edit
+	eval $cargo install cargo-asm
+	eval $cargo install sd
+	eval $cargo install difftastic
+	eval $cargo install fd-find
+	eval $cargo install ripgrep
+	eval $cargo install grex
+	eval $cargo install exa
+	eval $cargo install --locked bat
+	eval $cargo install --locked bottom
 }
 

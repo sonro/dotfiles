@@ -8,6 +8,7 @@ install_basic_ubuntu() {
 }
 
 install_dev_ubuntu() {
+	install_essential_ubuntu
 	install_neovim_ubuntu
 
 	local php_version="8.1"
@@ -15,7 +16,14 @@ install_dev_ubuntu() {
 	install_php_extensions_ubuntu "$php_version"
 }
 
+install_essential_ubuntu() {
+	echo "Installing dev build-essential and clang"
+	sudo apt install -y build-essential
+	sudo apt install -y clang
+}
+
 install_neovim_ubuntu() {
+	echo "Installing neovim"
 	sudo add-apt-repository -y ppa:neovim-ppa/stable
 	sudo apt-get update
 	sudo apt install -y neovim
@@ -29,6 +37,7 @@ install_php_ubuntu() {
 
     local version="$1"
 
+	echo "Installing PHP"
 	sudo apt install -y software-properties-common
 	sudo add-apt-repository -y ppa:ondrej/php
 	sudo apt update
