@@ -22,7 +22,7 @@ update_php_ubuntu() {
 	sudo apt install -y "php$latest"
 
 	source "$dotfile_dir/setup-src/install-ubuntu-software.bash"
-	install_php_extentions_ubuntu "$latest"
+	install_php_extensions_ubuntu "$latest"
 
 	if [[ "$current" != "$latest" ]]; then
 		echo "Removing php$current"

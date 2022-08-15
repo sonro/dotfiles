@@ -12,7 +12,7 @@ install_dev_ubuntu() {
 
 	local php_version="8.1"
 	install_php_ubuntu "$php_version"
-	install_php_extentions_ubuntu "$php_version"
+	install_php_extensions_ubuntu "$php_version"
 }
 
 install_neovim_ubuntu() {
@@ -35,9 +35,9 @@ install_php_ubuntu() {
 	sudo apt install -y "php$version"
 }
 
-install_php_extentions_ubuntu() {
+install_php_extensions_ubuntu() {
 	if [[ "$#" -ne 1 ]]; then
-		echo "function 'install_php_extentions_ubuntu' has parameters: version"
+		echo "function 'install_php_extensions_ubuntu' has parameters: version"
 		return 1;
 	fi
 
@@ -46,7 +46,8 @@ install_php_extentions_ubuntu() {
 	local extensions=("xml", "curl", "mysql", "dom")
 
 	for ext in "${extensions[@]}"; do
-		local package="php$version-$ext"
+		local package=$("php$version-$ext" | sed 's/,//g')
+		echo "Installing PHP extension $package"
 
 		sudo apt install -y "$package"
 	done
