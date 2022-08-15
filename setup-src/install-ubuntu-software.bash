@@ -17,9 +17,12 @@ install_dev_ubuntu() {
 }
 
 install_essential_ubuntu() {
-	echo "Installing dev build-essential and clang"
+	echo "Installing dev build-essential"
 	sudo apt install -y build-essential
+	echo "Installing clang"
 	sudo apt install -y clang
+	echo "Installing openssl library"
+	sudo apt install -y libssl-dev
 }
 
 install_neovim_ubuntu() {
