@@ -15,6 +15,8 @@ install_dev_linux() {
 }
 
 install_composer_linux() {
+	echo "Installing composer"
+
 	curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
 	sudo php \
 		/tmp/composer-setup.php \
@@ -55,6 +57,7 @@ install_my_scripts_linux() {
 }
 
 install_rust_linux() {
+	echo "Installing Rust"
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
 		| sh -s -- -y --no-modify-path
 }
