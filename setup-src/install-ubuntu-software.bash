@@ -60,10 +60,10 @@ install_php_extensions_ubuntu() {
 	local extensions=("xml", "curl", "mysql", "dom", "xdebug")
 
 	for ext in "${extensions[@]}"; do
-		local package=$("php$version-$ext" | sed 's/,//g')
+		local package="php$version-$ext"
 		echo "Installing PHP extension $package"
 
-		sudo apt install -y "$package"
+		sudo apt install -y $(echo $package | sed 's/,//g')
 	done
 }
 
