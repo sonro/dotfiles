@@ -16,7 +16,7 @@ install_dev_ubuntu() {
 }
 
 install_neovim_ubuntu() {
-	sudo add-apt-repository ppa:neovim-ppa/stable
+	sudo add-apt-repository -y ppa:neovim-ppa/stable
 	sudo apt-get update
 	sudo apt install -y neovim
 }
