@@ -54,6 +54,8 @@ install_vim_plugins() {
 	local dotfile_dir="$2"
 	local fresh="$3"
 
+	source "$dotfile_dir/setup-src/vimcommand.bash"
+
 	# install vim plugins
 	echo "Installing Vim Plugins"
 	local command="PlugInstall"
