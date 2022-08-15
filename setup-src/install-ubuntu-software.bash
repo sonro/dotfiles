@@ -23,6 +23,8 @@ install_essential_ubuntu() {
 	sudo apt install -y clang
 	echo "Installing openssl library"
 	sudo apt install -y libssl-dev
+	echo "Installing pkg-config"
+	sudo apt install -y pkg-config
 }
 
 install_neovim_ubuntu() {
@@ -55,7 +57,7 @@ install_php_extensions_ubuntu() {
 
     local version="$1"
 
-	local extensions=("xml", "curl", "mysql", "dom")
+	local extensions=("xml", "curl", "mysql", "dom", "xdebug")
 
 	for ext in "${extensions[@]}"; do
 		local package=$("php$version-$ext" | sed 's/,//g')
