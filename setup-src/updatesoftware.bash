@@ -10,7 +10,7 @@ update_software() {
 	source "$dotfile_dir/setup-src/nixversion.bash"
 	local os="$(nix_version)"
 
-	echo "Installing software"
+	echo "Updating software"
 	update_basic "$os" "$dotfile_dir"
 
 	if [[ "$server" == false ]]; then
