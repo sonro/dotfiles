@@ -56,12 +56,10 @@ install_vim_plugins() {
 
 	# install vim plugins
 	echo "Installing Vim Plugins"
-	if [[ "$server" == true ]]; then
-		vim -es -u "$dotfile_dir/vim/vimrc" -i NONE -c "PlugInstall" -c "qa" || :
-	else
-		nvim -es -u "$dotfile_dir/nvim/config/init.vim" \
-			-i NONE -c "PlugInstall" -c "qa" || :
+	local command="PlugInstall"
+	vim_command "$server" "$dotfile_dir" "$command"
 
+	if [[ "$server" == false ]]; then
 		local phpactor_link="/usr/local/bin/phpactor"
 
 		if [[ ! -f "$phpactor_link" || "$fresh" == true ]]; then

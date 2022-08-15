@@ -1,0 +1,34 @@
+#!/usr/bin/env php
+<?php
+
+const JSON_PHP_RELEASES_URL = "https://www.php.net/releases/index.php?json";
+const SUPPORTED_VERSIONS_KEY = "supported_versions";
+
+$current = floatval(PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION);
+$latest = getlatest();
+
+$needsUpdate = 0;
+
+if ($current < $latest) {
+    $needsUpdate = 1;
+}
+
+echo "$needsUpdate $current $latest";
+
+function getLatest() {
+    $json = file_get_contents(JSON_PHP_RELEASES_URL);
+    if (!$json) {
+        throw new Exception("No resource at: ".JSON_PHP_RELEASES_URL);
+    }
+
+    // json to assoc array
+    $data = json_decode($json, true);
+
+    // get latest release data
+    $data = array_shift($data);
+
+    // get latest minor version 
+    $latest = array_pop($data[SUPPORTED_VERSIONS_KEY]);
+
+    return floatval($latest);
+}

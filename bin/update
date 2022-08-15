@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+set -e
+
+HELP="\
+SYSTEM UPDATE
+=============
+sonro <sonro@gmx.com>
+
+Update machine and software for development on *nix
+
+USAGE: update [OPTIONS]
+
+OPTIONS:
+	-h, --help       Prints help information
+
+If any combination of these flags are set: only those functions will run
+	-s, --software   Update software
+	-p, --plugins	 Update plugins
+"
+
+# Config
+DOTFILE_DIR="$HOME/.dotfiles"
+
+# Options
+FRESH=false
+EXPLICIT=false
+SOFTWARE=false
+PLUGINS=false
+
+main() {
+	parse_args "$@"
+
+	check_server
+
+	if [[ "$EXPLICIT" == false || "$SOFTWARE" == true ]]; then
+		source "$DOTFILE_DIR/setup-src/updatesoftware.bash"
+		update_software "$SONRO_SERVER" "$DOTFILE_DIR"
+	fi
+
+	if [[ "$EXPLICIT" == false || "$PLUGINS" == true ]]; then
+		source "$DOTFILE_DIR/setup-src/updateplugins.bash"
+		update_plugins "$SONRO_SERVER" "$DOTFILE_DIR"
+	fi
+
+	return 0
+}
+
+parse_args() {
+	for opt in "$@"; do
+		case "$opt" in
+			-h|--help)
+				echo "$HELP"
+				exit 0
+				;;
+			-s|--software) 
+				EXPLICIT=true
+				SOFTWARE=true
+				;;
+			-p|--plugins) 
+				EXPLICIT=true
+				PLUGINS=true
+				;;
+		esac
+	done
+
+	return 0
+}
+
+check_server() {
+	if [[ ! -v SONRO_SERVER ]]; then
+		echo "env varible 'SONRO_SERVER' must be set"
+		return 1
+	fi
+
+	return 0
+}
+
+main "$@"

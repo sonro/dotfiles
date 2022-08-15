@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+set -e
+
+HELP="\
+PHP UPDATE
+=============
+sonro <sonro@gmx.com>
+
+Update PHP to latest version on *nix machines
+
+USAGE: php-update [OPTIONS]
+
+OPTIONS:
+	-h, --help       Prints help information
+"
+
+# Config
+DOTFILE_DIR="$HOME/.dotfiles"
+
+main() {
+	parse_args "$@"
+
+    local result=$($DOTFILE_DIR/bin/php-needs-update)
+    local needs_update=$(echo "$result" | cut -f1 -d " ")
+    local current=$(echo "$result" | cut -f2 -d " ")
+    local latest=$(echo "$result" | cut -f3 -d " ")
+
+    if [[ "$needs_update" == 1 ]]; then
+        local prompt="PHP needs to be updated from $current to $latest. Proceed? [Y/n] "
+
+        read -r -p "$prompt" input
+ 
+        case $input in
+            [yY][eE][sS]|[yY])
+                php_update "$current" "$latest" "$DOTFILE_DIR"
+                ;;
+            [nN][oO]|[nN])
+                return 0
+                ;;
+            *)
+                echo "Invalid input..."
+                return 1
+                ;;
+        esac
+    fi
+
+}
+
+parse_args() {
+	for opt in "$@"; do
+		case "$opt" in
+			-h|--help)
+				echo "$HELP"
+				exit 0
+				;;
+		esac
+	done
+
+	return 0
+}
+
+php_update() {
+	if [[ "$#" -ne 3 ]]; then
+		echo "function 'php_update' has parameters: current_version latest_version dotfile_dir"
+		return 1;
+	fi
+
+    local current="$1"
+    local latest="$2"
+    local dotfile_dir="$3"
+
+	source "$dotfile_dir/setup-src/nixversion.bash"
+	local os="$(nix_version)"
+	
+	case "$os" in
+		Mac)
+			echo "implement php_update for mac"
+			;;
+		Ubuntu)
+			source "$dotfile_dir/setup-src/update-ubuntu-software.bash"
+            update_php_ubuntu "$current" "$latest" "$dotfile_dir"
+			;;
+		*)
+			echo "Unknown nix environment, skipping php_update"
+			return 0;
+			;;
+	esac
+}
+
+main "$@"

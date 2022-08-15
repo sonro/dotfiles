@@ -12,22 +12,23 @@ install_software() {
 	local os="$(nix_version)"
 
 	echo "Installing software"
-	install_basic "$os"
+	install_basic "$os" "$dotfile_dir"
 
 	if [[ "$server" == false ]]; then
-		install_dev "$os" "$fresh"
+		install_dev "$os" "$fresh" "$dotfile_dir"
 	fi
 
 	return 0
 }
 
 install_basic() {
-	if [[ "$#" -ne 1 ]]; then
-		echo "function 'install_basic' has parameters: os"
+	if [[ "$#" -ne 2 ]]; then
+		echo "function 'install_basic' has parameters: os dotfile_dir"
 		return 1;
 	fi
 
 	local os="$1"
+	local dotfile_dir="$2"
 
 	case "$os" in
 		Mac)
@@ -45,13 +46,14 @@ install_basic() {
 }
 
 install_dev() {
-	if [[ "$#" -ne 2 ]]; then
-		echo "function 'install_dev' has parameters: os fresh"
+	if [[ "$#" -ne 3 ]]; then
+		echo "function 'install_dev' has parameters: os fresh dotfile_dir"
 		return 1;
 	fi
 
 	local os="$1"
 	local fresh="$2"
+	local dotfile_dir="$3"
 
 	case "$os" in
 		Mac)
