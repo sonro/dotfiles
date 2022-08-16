@@ -9,6 +9,7 @@ install_basic_ubuntu() {
 
 install_dev_ubuntu() {
 	install_essential_ubuntu
+	install_c_ubuntu
 	install_neovim_ubuntu
 
 	local php_version="8.1"
@@ -25,6 +26,13 @@ install_essential_ubuntu() {
 	sudo apt install -y libssl-dev
 	echo "Installing pkg-config"
 	sudo apt install -y pkg-config
+}
+
+install_c_ubuntu() {
+	echo "Installing lldb"
+	sudo apt install -y lldb
+	echo "Installing gdb"
+	sudo apt install -y gdb
 }
 
 install_neovim_ubuntu() {
