@@ -96,6 +96,7 @@ install_rust_utils() {
 	eval $cargo install cargo-edit
 	eval $cargo install cargo-asm
 	eval $cargo install watchexec-cli
+	eval $cargo install just
 	eval $cargo install sd
 	eval $cargo install difftastic
 	eval $cargo install fd-find
