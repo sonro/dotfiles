@@ -10,6 +10,7 @@ install_basic_ubuntu() {
 install_dev_ubuntu() {
 	install_essential_ubuntu
 	install_c_ubuntu
+	install_lib_ubuntu
 	install_neovim_ubuntu
 
 	local php_version="8.1"
@@ -22,10 +23,16 @@ install_essential_ubuntu() {
 	sudo apt install -y build-essential
 	echo "Installing clang"
 	sudo apt install -y clang
-	echo "Installing openssl library"
-	sudo apt install -y libssl-dev
 	echo "Installing pkg-config"
 	sudo apt install -y pkg-config
+}
+
+install_lib_ubuntu() {
+	echo "Installing libraries"
+	sudo apt install -y \
+		libssl-dev \
+		libgit2-dev \
+		libssh-dev
 }
 
 install_c_ubuntu() {
@@ -33,6 +40,8 @@ install_c_ubuntu() {
 	sudo apt install -y lldb
 	echo "Installing gdb"
 	sudo apt install -y gdb
+	echo "Installing valgrind"
+	sudo apt install -y valgrind
 }
 
 install_neovim_ubuntu() {
