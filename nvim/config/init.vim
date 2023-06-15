@@ -14,6 +14,7 @@ call plug#begin()
 Plug 'ciaranm/securemodelines'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-vinegar'
 Plug 'jiangmiao/auto-pairs'

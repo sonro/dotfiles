@@ -22,6 +22,9 @@
 	gpgSign = true
 [transfer]
 	fsckObjects = false
-
+[alias]
+	l = log --oneline
+	s = status
+		
 [gpg]
 	program = /usr/bin/gpg
