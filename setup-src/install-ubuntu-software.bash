@@ -63,8 +63,7 @@ install_php_ubuntu() {
 	sudo apt install -y software-properties-common
 	sudo add-apt-repository -y ppa:ondrej/php
 	sudo apt update
-	sudo apt install -y "php$version"
-	sudo apt install -y "php$version --no-install-recommends"
+	sudo apt install -y --no-install-recommends "php$version"
 
 }
 
