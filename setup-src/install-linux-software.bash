@@ -31,7 +31,7 @@ install_php_cs_fixer_linux() {
 	fi
 	
 	echo "Installing Php CS Fixer"
-	composer global require friendsofphp/php-cs-fixer --no-interaciton
+	composer global require friendsofphp/php-cs-fixer --no-interaction
 
 	return 0
 }
