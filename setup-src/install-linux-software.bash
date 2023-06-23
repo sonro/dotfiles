@@ -87,10 +87,12 @@ install_zig_linux() {
 
 	mkdir -p "$local_sore"
 
-	git clone https://github.com/zigtools/zls "$local_sore/zls"
+	if [ ! -d "$local_sore/zls" ]; then
+		git clone https://github.com/zigtools/zls "$local_sore/zls"
+	fi
 
 	cd "$local_sore/zls"
-
+	git pull
 	eval "$HOME/.zvm/bin/zig" build -Doptimize=ReleaseSafe
 
 	cd $cwd
