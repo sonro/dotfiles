@@ -91,7 +91,7 @@ install_zig_linux() {
 
 	cd "$local_sore/zls"
 
-	eval "$HOME/.zlm/bin/zig" build -Doptimize=ReleaseSafe
+	eval "$HOME/.zvm/bin/zig" build -Doptimize=ReleaseSafe
 
 	cd $cwd
 }
