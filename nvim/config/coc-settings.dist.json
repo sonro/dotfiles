@@ -2,5 +2,11 @@
 	"zig.enabled": true,
 	"zig.startUpMessage": true,
 	"zig.path": "$HOME/xDev/sore/zls/zig-out/bin/zls",
-	"zig.debugLog": false
+	"zig.debugLog": false,
+
+	"workspace.ignoredFolders": [
+		"$HOME/",
+		"$HOME/.cargo/**",
+		"$HOME/.rustup/**"
+	]
 }

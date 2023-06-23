@@ -46,6 +46,22 @@ update_zig_linux() {
 }
 
 update_rust_utils_linux() {
+	local local_sore="$HOME/xDev/sore"
+	local sore_ra="$local_sore/rust-analyzer"
+	local cwd=$(pwd)
+
+	echo "Updating rust-analyzer"
+
+	mkdir -p "$local_sore"
+
+	if [ ! -d "$sore_ra" ]; then
+		git clone https://github.com/rust-lang/rust-analyzer.git "$sore_ra"
+	fi
+
+	cd "$sore_ra"
+	git pull
+	eval "cargo" xtask install --server
+
 	echo "Updating rust packages"
 	cargo install-update -a
 }

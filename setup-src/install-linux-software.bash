@@ -125,7 +125,21 @@ install_node_linux() {
 install_rust_utils() {
 	local cargo_dir="$HOME/.cargo/bin"
 	local cargo="$cargo_dir/cargo"
+	local local_sore="$HOME/xDev/sore"
+	local sore_ra="$local_sore/rust-analyzer"
 	local cwd=$(pwd)
+
+	echo "Installing rust-analyzer"
+
+	mkdir -p "$local_sore"
+
+	if [ ! -d "$sore_ra" ]; then
+		git clone https://github.com/rust-lang/rust-analyzer.git "$sore_ra"
+	fi
+
+	cd "$sore_ra"
+	git pull
+	eval "cargo" xtask install --server
 
 	cd "$cargo_dir"
 
