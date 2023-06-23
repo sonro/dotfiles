@@ -25,14 +25,13 @@ install_composer_linux() {
 		--filename=composer
 }
 
-#TODO check PATH is updated to use composer global stuff
 install_php_cs_fixer_linux() {
 	if command -v php-cs-fixer &> /dev/null; then
 		return 0
 	fi
 	
 	echo "Installing Php CS Fixer"
-	composer global require friendsofphp/php-cs-fixer &> /dev/null
+	composer global require friendsofphp/php-cs-fixer --no-interaciton
 
 	return 0
 }

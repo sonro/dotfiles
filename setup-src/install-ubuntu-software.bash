@@ -74,7 +74,7 @@ install_php_extensions_ubuntu() {
 
     local version="$1"
 
-	local extensions=("xml", "curl", "mysql", "dom", "xdebug")
+	local extensions=("xml", "curl", "mysql", "dom", "xdebug", "zip")
 
 	for ext in "${extensions[@]}"; do
 		local package="php$version-$ext"
