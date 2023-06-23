@@ -64,8 +64,8 @@ install_rust_linux() {
 
 install_zig_linux() {
 	local cwd=$(pwd)
-	local local_bin = "$HOME/.local/bin"
-	local local_sore = "$HOME/xDev/sore"
+	local local_bin="$HOME/.local/bin"
+	local local_sore="$HOME/xDev/sore"
 
 	if ! builtin type -P zvm &> /dev/null; then
 		echo "Installing Zig Version Manager"
