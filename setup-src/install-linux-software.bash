@@ -122,23 +122,41 @@ install_node_linux() {
 }
 
 install_rust_utils() {
-	local cargo="$HOME/.cargo/bin/cargo"
+	local cargo_dir="$HOME/.cargo/bin"
+	local cargo="$cargo_dir/cargo"
+	local cwd=$(pwd)
 
-	echo "Installing rust utilities"
+	cd "$cargo_dir"
 
-	eval $cargo install cargo-update
-	eval $cargo install cargo-whatfeatures
-	eval $cargo install cargo-edit
-	eval $cargo install cargo-asm
-	eval $cargo install watchexec-cli
-	eval $cargo install just
-	eval $cargo install sd
-	eval $cargo install difftastic
-	eval $cargo install fd-find
-	eval $cargo install ripgrep
-	eval $cargo install grex
-	eval $cargo install exa
-	eval $cargo install --locked bat
-	eval $cargo install --locked bottom
+	echo "Installing Cargo Binstall"
+	curl -L --proto '=https' --tlsv1.2 -sSf \
+		https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh \
+		| bash
+	
+	echo "Installing Cargo packages"
+	eval "$cargo" binstall --no-confirm --force \
+		bat \
+		bottom \
+		cargo-asm \
+		cargo-audit \
+		cargo-cache \
+		cargo-edit \
+		cargo-expand \
+		cargo-msrv \
+		cargo-semver-checks\
+		cargo-update \
+		cargo-whatfeatures \
+		difftastic \
+		exa \
+		fd-find \
+		grex \
+		just \
+		nu \
+		ripgrep \
+		sd \
+		tokei \
+		watchexec-cli
+
+	cd "$cwd"
 }
 
