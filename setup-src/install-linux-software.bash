@@ -68,15 +68,17 @@ install_zig_linux() {
 	local local_bin = "$HOME/.local/bin"
 	local local_sore = "$HOME/xDev/sore"
 
-	echo "Installing Zig Version Manager"
+	if ! builtin type -P zvm &> /dev/null; then
+		echo "Installing Zig Version Manager"
 
-	mkdir -p "$local_bin"
-	cd "$local_bin"
+		mkdir -p "$local_bin"
+		cd "$local_bin"
 
-	curl https://raw.githubusercontent.com/tristanisham/zvm/master/install.sh \
-		| bash
+		curl https://raw.githubusercontent.com/tristanisham/zvm/master/install.sh \
+			| bash
 
-	cd $cwd
+		cd $cwd
+	fi
 
 	echo "Installing latest Zig"
 	
