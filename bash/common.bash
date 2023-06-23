@@ -13,9 +13,13 @@ fi
 if [ -d "$HOME/.symfony/bin" ] ; then
     PATH="$HOME/.symfony/bin:$PATH"
 fi
-if [ -d "$HOME/.zig/bin" ] ; then
-    PATH="$HOME/.zig/bin:$PATH"
+if [ -d "$HOME/.zig" ] ; then
+    PATH="$HOME/.zig:$PATH"
 fi
+if [ -d "$HOME/.zvm" ] ; then
+    PATH="$HOME/.zvm/bin:$PATH"
+fi
+
 
 # set PATH so it includes user's private bins if they exist
 if [ -d "$HOME/bin" ] ; then

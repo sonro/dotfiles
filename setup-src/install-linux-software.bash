@@ -10,6 +10,7 @@ install_dev_linux() {
 	install_php_cs_fixer_linux
 	install_my_scripts_linux "$fresh"
 	install_rust_linux
+	install_zig_linux
 	install_node_linux
 	install_rust_utils
 }
@@ -60,6 +61,38 @@ install_rust_linux() {
 	echo "Installing Rust"
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
 		| sh -s -- -y --no-modify-path
+}
+
+install_zig_linux() {
+	local cwd=$(pwd)
+	local local_bin = "$HOME/.local/bin"
+	local local_sore = "$HOME/xDev/sore"
+
+	echo "Installing Zig Version Manager"
+
+	mkdir -p "$local_bin"
+	cd "$local_bin"
+
+	curl https://raw.githubusercontent.com/tristanisham/zvm/master/install.sh \
+		| bash
+
+	cd $cwd
+
+	echo "Installing latest Zig"
+	
+	eval "$local_bin/zvm" i master
+
+	echo "Installing Zig Langauge Server"
+
+	mkdir -p "$local_sore"
+
+	git clone https://github.com/zigtools/zls "$local_sore/zls"
+
+	cd "$local_sore/zls"
+
+	eval "$HOME/.zlm/bin/zig" build -Doptimize=ReleaseSafe
+
+	cd $cwd
 }
 
 install_node_linux() {

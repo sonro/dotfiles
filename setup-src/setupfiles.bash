@@ -100,6 +100,8 @@ setup_vim_files() {
 			rm -rf "$HOME/.config/nvim"
 			mkdir -p "$HOME/.config"
 			ln -s "$dotfile_dir/nvim/config" "$HOME/.config/nvim"
+			cp "$dotfile_dir/nvim/config/coc-settings.dist.json" \
+			"$dotfile_dir/nvim/config/coc-settings.json"
 		fi
 	fi
 }
