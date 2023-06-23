@@ -13,7 +13,7 @@ install_dev_ubuntu() {
 	install_lib_ubuntu
 	install_neovim_ubuntu
 
-	local php_version="8.1"
+	local php_version="8.2"
 	install_php_ubuntu "$php_version"
 	install_php_extensions_ubuntu "$php_version"
 }
