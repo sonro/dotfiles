@@ -64,6 +64,8 @@ install_php_ubuntu() {
 	sudo add-apt-repository -y ppa:ondrej/php
 	sudo apt update
 	sudo apt install -y "php$version"
+	sudo apt install -y "php$version --no-install-recommends"
+
 }
 
 install_php_extensions_ubuntu() {
@@ -74,7 +76,19 @@ install_php_extensions_ubuntu() {
 
     local version="$1"
 
-	local extensions=("xml", "curl", "mysql", "dom", "xdebug", "zip")
+	local extensions=(
+		"xml",
+		"curl",
+		"mysql",
+		"dom",
+		"xdebug",
+		"zip",
+		"cli",
+		"common",
+		"gd", 
+		"bcmath", 
+		"mbstring"
+	)
 
 	for ext in "${extensions[@]}"; do
 		local package="php$version-$ext"
