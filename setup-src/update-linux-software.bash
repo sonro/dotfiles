@@ -60,7 +60,7 @@ update_rust_utils_linux() {
 
 	cd "$sore_ra"
 	git pull
-	eval "cargo" xtask install --server
+	cargo xtask install --server
 
 	echo "Updating rust packages"
 	cargo install-update -a

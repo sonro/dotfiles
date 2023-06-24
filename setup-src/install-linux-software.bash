@@ -144,7 +144,7 @@ install_rust_utils() {
 
 	cd "$sore_ra"
 	git pull
-	eval "cargo" xtask install --server
+	eval "$cargo" xtask install --server
 
 	cd "$cargo_dir"
 
