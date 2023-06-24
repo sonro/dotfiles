@@ -66,6 +66,7 @@ install_zig_linux() {
 	local cwd=$(pwd)
 	local local_bin="$HOME/.local/bin"
 	local local_sore="$HOME/xDev/sore"
+	local zls_bin="$local_sore/zls/sig-out/bin/zls"
 
 	if ! builtin type -P zvm &> /dev/null; then
 		echo "Installing Zig Version Manager"
@@ -97,7 +98,7 @@ install_zig_linux() {
 	eval "$HOME/.zvm/bin/zig" build -Doptimize=ReleaseSafe
 
 	if [ ! -f "$local_bin/zls" ]; then
-		ln -s "$local_sore/zls" "$local_bin/zls"
+		ln -s "$zls_bin" "$local_bin/zls"
 	fi
 
 	cd $cwd
