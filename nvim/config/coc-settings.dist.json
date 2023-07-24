@@ -8,5 +8,7 @@
 		"$HOME/",
 		"$HOME/.cargo/**",
 		"$HOME/.rustup/**"
-	]
+	],
+
+	"rust-analyzer.server.path": "$HOME/.cargo/bin/rust-analyzer"
 }
