@@ -66,7 +66,7 @@ install_zig_linux() {
 	local cwd=$(pwd)
 	local local_bin="$HOME/.local/bin"
 	local local_sore="$HOME/xDev/sore"
-	local zls_bin="$local_sore/zls/sig-out/bin/zls"
+	local zls_bin="$local_sore/zls/zig-out/bin/zls"
 
 	if ! builtin type -P zvm &> /dev/null; then
 		echo "Installing Zig Version Manager"
