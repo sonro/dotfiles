@@ -18,6 +18,7 @@ if [ -d "$HOME/.zig" ] ; then
 fi
 if [ -d "$HOME/.zvm" ] ; then
     PATH="$HOME/.zvm/bin:$PATH"
+    PATH="$HOME/.zvm/self:$PATH"
 fi
 
 
@@ -33,6 +34,8 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 
 export PATH
+
+export ZVM_INSTALL="$HOME/.zvm/self"
 
 export GPG_TTY=$(tty)
 
