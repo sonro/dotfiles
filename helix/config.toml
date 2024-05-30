@@ -1,0 +1,44 @@
+theme = "catppuccin_mocha"
+
+[editor]
+bufferline = "always"
+#cursorline = true
+true-color = true
+rulers = [80]
+text-width = 80
+line-number = "relative"
+
+[editor.lsp]
+display-messages = true
+auto-signature-help = false
+display-inlay-hints = true
+
+[editor.statusline]
+left = ["mode", "spinner", "version-control", "file-name"]
+
+[editor.cursor-shape]
+insert = "bar"
+
+[editor.soft-wrap]
+enable = true
+max-wrap = 10 # increase value to reduce forced mid-word wrapping
+max-indent-retain = 40
+
+[keys.normal]
+up = "no_op"
+down = "no_op"
+left = "no_op"
+right = "no_op"
+"A-/" = ":toggle-option lsp.display-inlay-hints"
+"C-k" = "signature_help"
+
+[keys.insert]
+up = "no_op"
+down = "no_op"
+left = "no_op"
+right = "no_op"
+pageup = "no_op"
+pagedown = "no_op"
+home = "no_op"
+end = "no_op"
+"C-k" = "signature_help"
