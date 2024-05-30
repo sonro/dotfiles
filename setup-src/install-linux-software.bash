@@ -169,7 +169,6 @@ install_rust_utils() {
 		fd-find \
 		grex \
 		just \
-		nu \
 		ripgrep \
 		sd \
 		tokei \
