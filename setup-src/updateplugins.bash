@@ -7,7 +7,7 @@ update_plugins() {
 	local server="$1"
 	local dotfile_dir="$2"
 
-	update_vim_plugins "$server" "$dotfile_dir"
+	# update_vim_plugins "$server" "$dotfile_dir"
 
 	update_tmux_plugins
 }

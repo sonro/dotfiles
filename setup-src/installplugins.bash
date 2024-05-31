@@ -8,9 +8,9 @@ install_plugins() {
 	local dotfile_dir="$2"
 	local fresh="$3"
 
-	install_vimplug "$server" "$dotfile_dir" "$fresh"
+	# install_vimplug "$server" "$dotfile_dir" "$fresh"
 
-	install_vim_plugins "$server" "$dotfile_dir" "$fresh"
+	# install_vim_plugins "$server" "$dotfile_dir" "$fresh"
 
 	install_tmux_plugins "$fresh"
 }
