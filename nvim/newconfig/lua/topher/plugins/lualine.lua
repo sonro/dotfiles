@@ -1,0 +1,12 @@
+return {
+    "nvim-lualine/lualine.nvim",
+    config = function()
+        local lualine = require("lualine")
+        lualine.setup({
+            options = {
+                theme = "tokyonight",
+                icons_enabled = false,
+            },
+        })
+    end,
+}
