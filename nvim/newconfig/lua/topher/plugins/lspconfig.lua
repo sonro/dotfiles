@@ -14,7 +14,7 @@ return {
 		vim.g.coq_settings = {
 			auto_start = true,
 			completion = {
-				always = false,
+				always = true,
 			},
 			display = {
 				icons = {
