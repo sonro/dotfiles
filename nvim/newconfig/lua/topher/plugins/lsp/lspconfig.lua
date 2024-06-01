@@ -75,13 +75,6 @@ return {
 			filetypes = {
 				"zig",
 			},
-			settings = {
-				zig = {
-					zls = {
-						path = "zls",
-					},
-				},
-			},
 		})
 		lspconfig["rust_analyzer"].setup({
 			capabilities = capabilities,
