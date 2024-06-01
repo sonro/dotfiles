@@ -1,15 +1,90 @@
 return {
 	"neovim/nvim-lspconfig",
-	event = { "BufReadPre", "BufNewFile" },
+	lazy = true,
 	dependencies = {
-		"hrsh7th/cmp-nvim-lsp",
-		{ "antosha417/nvim-lsp-file-operations", config = true },
-		{ "folke/neodev.nvim", opts = {} },
+		-- main
+		{ "ms-jpq/coq_nvim", branch = "coq" },
+		-- snippets
+		{ "ms-jpq/coq.artifacts", branch = "artifacts" },
+		-- lua and third party sources -- see https://github.com/ms-jpq/coq.thirdparty
+		{ "ms-jpq/coq.thirdparty", branch = "3p" },
 	},
+	init = function()
+		-- coq settings here
+		vim.g.coq_settings = {
+			auto_start = true,
+			completion = {
+				always = false,
+			},
+			display = {
+				icons = {
+					mode = "none",
+				},
+			},
+			keymap = {
+				recommended = false,
+			},
+		}
+		local remap = vim.api.nvim_set_keymap
+		remap("i", "<esc>", [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
+		remap("i", "<c-c>", [[pumvisible() ? "<c-e><c-c>" : "<c-c>"]], { expr = true, noremap = true })
+		remap("i", "<tab>", [[pumvisible() ? "<c-n>" : "<tab>"]], { expr = true, noremap = true })
+		remap("i", "<s-tab>", [[pumvisible() ? "<c-p>" : "<bs>"]], { expr = true, noremap = true })
+	end,
 	config = function()
 		local lspconfig = require("lspconfig")
+		local coq = require("coq")
 		local mason_lspconfig = require("mason-lspconfig")
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
+		local langs = require("topher.langs.lsp")
+
+		require("coq_3p")({
+			{ src = "nvimlua", short_name = "nLUA", conf_only = false },
+		})
+
+		for lsp, opts in pairs(langs) do
+			lspconfig[lsp].setup(coq.lsp_ensure_capabilities({
+				filetypes = opts.filetypes,
+				settings = opts.settings,
+			}))
+		end
+
+		mason_lspconfig.setup_handlers({
+			-- default handler for installed servers
+			function(server_name)
+				lspconfig[server_name].setup(coq.lsp_ensure_capabilities())
+			end,
+			["emmet_ls"] = function()
+				-- configure emmet language server
+				lspconfig["emmet_ls"].setup(coq.lsp_ensure_capabilities({
+					filetypes = {
+						"html",
+						"typescriptreact",
+						"javascriptreact",
+						"css",
+						"sass",
+						"scss",
+						"less",
+						"svelte",
+					},
+				}))
+			end,
+			["lua_ls"] = function()
+				-- configure lua server (with special settings)
+				lspconfig["lua_ls"].setup(coq.lsp_ensure_capabilities({
+					settings = {
+						Lua = {
+							-- make the language server recognize "vim" global
+							diagnostics = {
+								globals = { "vim" },
+							},
+							completion = {
+								callSnippet = "Replace",
+							},
+						},
+					},
+				}))
+			end,
+		})
 
 		local keymap = vim.keymap
 
@@ -59,76 +134,6 @@ return {
 
 				opts.desc = "Restart LSP"
 				keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
-			end,
-		})
-
-		-- used to enable autocompletion (assign to every lsp server config)
-		local capabilities = cmp_nvim_lsp.default_capabilities()
-
-		-- for type, icon in pairs(signs) do
-		--     local hl = "DiagnosticSign" .. type
-		--     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-		-- end
-
-		lspconfig["zls"].setup({
-			capabilities = capabilities,
-			filetypes = {
-				"zig",
-			},
-		})
-		lspconfig["rust_analyzer"].setup({
-			capabilities = capabilities,
-			filetypes = {
-				"rust",
-			},
-			settings = {
-				["rust-analyzer"] = {
-					check = {
-						command = "clippy",
-					},
-				},
-			},
-		})
-
-		mason_lspconfig.setup_handlers({
-			-- default handler for installed servers
-			function(server_name)
-				lspconfig[server_name].setup({
-					capabilities = capabilities,
-				})
-			end,
-			["emmet_ls"] = function()
-				-- configure emmet language server
-				lspconfig["emmet_ls"].setup({
-					capabilities = capabilities,
-					filetypes = {
-						"html",
-						"typescriptreact",
-						"javascriptreact",
-						"css",
-						"sass",
-						"scss",
-						"less",
-						"svelte",
-					},
-				})
-			end,
-			["lua_ls"] = function()
-				-- configure lua server (with special settings)
-				lspconfig["lua_ls"].setup({
-					capabilities = capabilities,
-					settings = {
-						Lua = {
-							-- make the language server recognize "vim" global
-							diagnostics = {
-								globals = { "vim" },
-							},
-							completion = {
-								callSnippet = "Replace",
-							},
-						},
-					},
-				})
 			end,
 		})
 	end,
