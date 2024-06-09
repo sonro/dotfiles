@@ -99,7 +99,7 @@ setup_vim_files() {
 		if [[ ! -d "$HOME/.config/nvim" || "$fresh" == true ]]; then
 			rm -rf "$HOME/.config/nvim"
 			mkdir -p "$HOME/.config"
-			ln -s "$dotfile_dir/nvim/config" "$HOME/.config/nvim"
+			ln -s "$dotfile_dir/nvim/newconfig" "$HOME/.config/nvim"
 			cp "$dotfile_dir/nvim/config/coc-settings.dist.json" \
 			"$dotfile_dir/nvim/config/coc-settings.json"
 		fi
