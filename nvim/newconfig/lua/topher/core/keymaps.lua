@@ -29,4 +29,7 @@ keymap.set("n", "<leader>tp", ":tabp<CR>", { desc = "Goto prev tab" })
 keymap.set("n", "<leader>e", ':e <c-r>=expand("%:p:h") . "/" <cr>', { desc = "Open new file adjacent to current" })
 
 -- misc
+-- toggle background light and dark
+keymap.set("n", "<leader>#", ":set background=light<CR>", { desc = "Set to light mode" })
+keymap.set("n", "<leader>~", ":set background=dark<CR>", { desc = "Set to dark mode" })
 keymap.set({ "n", "i" }, "<f1>", "<esc", { remap = true }) -- type :help instead
