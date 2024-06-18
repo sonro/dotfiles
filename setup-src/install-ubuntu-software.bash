@@ -11,6 +11,7 @@ install_dev_ubuntu() {
 	install_essential_ubuntu
 	install_c_ubuntu
 	install_lib_ubuntu
+    install_neovim_plugin_deps
 	install_neovim_ubuntu
 
 	local php_version="8.3"
@@ -48,7 +49,15 @@ install_neovim_ubuntu() {
 	echo "Installing neovim"
 	sudo add-apt-repository -y ppa:neovim-ppa/stable
 	sudo apt-get update
-	sudo apt install -y neovim
+	sudo apt install -y neovim 
+}
+
+install_neovim_plugin_deps() {
+	echo "Installing neovim plugin dependencies"
+    sudo apt install -y \
+        python3-venv \
+        sqlite3 \
+        unzip
 }
 
 install_php_ubuntu() {
