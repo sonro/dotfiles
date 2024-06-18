@@ -84,6 +84,10 @@ opt.termguicolors = true
 -- colorschemes that can be light/dark use
 opt.background = "dark"
 
+---- FILETYPES
+-- zig
+vim.filetype.add({ extension = { zon = "zig" } })
+
 ---- MISC
 -- backspace
 -- opt.backspace = "indent,eol,start"
