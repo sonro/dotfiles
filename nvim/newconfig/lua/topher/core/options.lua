@@ -57,6 +57,10 @@ opt.formatoptions = {
 	n = true, -- detect lists for formatting
 	b = true, -- auto-wrap on insert, do not wrap old long lines
 }
+-- stop newline comments for c and rust
+vim.cmd([[
+    autocmd FileType c,cpp,php,rust,javascript,zig setlocal comments-=:// comments+=f://
+]])
 
 ---- SEARCH
 -- sets highlight

@@ -22,6 +22,7 @@ return {
 			ensure_installed = {
 				"bash",
 				"css",
+				"c",
 				"dockerfile",
 				"graphql",
 				"gitcommit",
