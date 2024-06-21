@@ -8,6 +8,7 @@ return {
 		{ "ms-jpq/coq.artifacts", branch = "artifacts" },
 		-- lua and third party sources -- see https://github.com/ms-jpq/coq.thirdparty
 		{ "ms-jpq/coq.thirdparty", branch = "3p" },
+		"williamboman/mason.nvim",
 	},
 	init = function()
 		-- coq settings here
