@@ -15,7 +15,7 @@ return {
 		vim.g.coq_settings = {
 			auto_start = true,
 			completion = {
-				always = true,
+				always = false,
 			},
 			display = {
 				icons = {
@@ -27,6 +27,7 @@ return {
 			},
 		}
 		local remap = vim.api.nvim_set_keymap
+
 		remap("i", "<esc>", [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
 		remap("i", "<c-c>", [[pumvisible() ? "<c-e><c-c>" : "<c-c>"]], { expr = true, noremap = true })
 		remap("i", "<tab>", [[pumvisible() ? "<c-n>" : "<tab>"]], { expr = true, noremap = true })

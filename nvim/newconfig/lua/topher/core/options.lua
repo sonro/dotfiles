@@ -91,6 +91,8 @@ opt.background = "dark"
 ---- FILETYPES
 -- zig
 vim.filetype.add({ extension = { zon = "zig" } })
+-- c
+vim.filetype.add({ extension = { h = "c" } })
 
 ---- MISC
 -- backspace
