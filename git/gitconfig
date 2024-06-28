@@ -1,7 +1,7 @@
 [user]
 	name = Christopher Morton
 	email = sonro@gmx.com
-	signingkey = 61BC50EC0F0D2F89
+	signingkey = /home/topher/.ssh/id_ed25519.pub
 [core]
 	autocrlf = input
 	safecrlf = true
@@ -17,14 +17,15 @@
 [status]
 	showUntrackedFiles = all
 [transfer]
-	fsckobjects = true
-[commit]
-	gpgSign = true
-[transfer]
 	fsckObjects = false
 [alias]
 	l = log --oneline
 	s = status
-		
 [gpg]
-	program = /usr/bin/gpg
+	format = ssh
+[gpg "ssh"]
+	allowedSignersFile = /home/topher/.ssh/allowed_signers
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
