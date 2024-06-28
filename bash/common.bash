@@ -43,5 +43,5 @@ export PHP_CS_FIXER_IGNORE_ENV=1
 
 # Attach to SSH agent once
 if [ -z ${SSH_AGENT_PID+x} ]; then
-	eval $(ssh-agent)
+	eval $(ssh-agent -s)
 fi
