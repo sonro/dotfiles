@@ -10,6 +10,9 @@ return {
 				check = {
 					command = "clippy",
 				},
+				cargo = {
+					allFeatures = true,
+				},
 			},
 		},
 	},

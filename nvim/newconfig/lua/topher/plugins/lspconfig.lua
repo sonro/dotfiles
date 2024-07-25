@@ -14,6 +14,9 @@ return {
 		-- coq settings here
 		vim.g.coq_settings = {
 			auto_start = true,
+			limits = {
+				completion_auto_timeout = 0.5,
+			},
 			completion = {
 				always = false,
 			},
@@ -44,10 +47,7 @@ return {
 		})
 
 		for lsp, opts in pairs(langs) do
-			lspconfig[lsp].setup(coq.lsp_ensure_capabilities({
-				filetypes = opts.filetypes,
-				settings = opts.settings,
-			}))
+			lspconfig[lsp].setup(coq.lsp_ensure_capabilities(opts))
 		end
 
 		mason_lspconfig.setup_handlers({
