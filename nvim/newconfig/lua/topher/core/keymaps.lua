@@ -14,7 +14,7 @@ keymap.set({ "n", "i" }, "<right>", "<nop>")
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 
 -- buffers
-keymap.set("n", "<leader>q", ":bd<CR>", { desc = "Close current buffer" })
+keymap.set("n", "<leader>q", ":bp | sp | bn | bd<CR>", { desc = "Close current buffer", silent = true })
 keymap.set("n", "<leader><leader>", "<c-^>", { desc = "Toggle between buffer" })
 keymap.set("n", "gp", ":bp<CR>", { desc = "Goto prev buffer" })
 keymap.set("n", "gn", ":bn<CR>", { desc = "Goto next buffer" })

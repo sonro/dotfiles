@@ -6,6 +6,9 @@ return {
 		config = function()
 			require("gruvbox").setup({
 				contrast = "hard",
+				palette_overrides = {
+					dark0_hard = "#0f0f0f",
+				},
 			})
 			-- vim.cmd("colorscheme gruvbox")
 		end,
