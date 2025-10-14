@@ -13,6 +13,9 @@ fi
 if [ -d "$HOME/.symfony/bin" ] ; then
     PATH="$HOME/.symfony/bin:$PATH"
 fi
+if [ -d "$HOME/.symfony5/bin" ] ; then
+    PATH="$HOME/.symfony5/bin:$PATH"
+fi
 if [ -d "$HOME/.zig" ] ; then
     PATH="$HOME/.zig:$PATH"
 fi

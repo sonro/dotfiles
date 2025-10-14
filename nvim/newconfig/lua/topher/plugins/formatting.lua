@@ -21,6 +21,7 @@ return {
 				lua = { "stylua" },
 				c = { "clang-format" },
 				python = { "isort", "black" },
+				php = { "pretty-php" },
 			},
 			format_on_save = function(bufnr)
 				-- Disable with a global or buffer-local variable
