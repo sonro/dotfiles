@@ -3,6 +3,7 @@ return {
 	lazy = true,
 	config = function()
 		vim.lsp.enable("clangd")
+        vim.lsp.enable("zls")
 
 		-- vim.api.nvim_create_autocmd("LspAttach", {
 		-- 	callback = function(args)
