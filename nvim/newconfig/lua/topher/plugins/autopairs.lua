@@ -1,9 +1,6 @@
 return {
 	"windwp/nvim-autopairs",
 	event = { "InsertEnter" },
-	dependencies = {
-		{ "ms-jpq/coq_nvim", branch = "coq" },
-	},
 	config = function()
 		-- import nvim-autopairs
 		-- local autopairs = require("nvim-autopairs")
