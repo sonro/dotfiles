@@ -50,6 +50,7 @@ opt.autoindent = true
 
 ---- FORMATTING
 opt.wrap = false
+opt.textwidth = 78
 opt.formatoptions = {
 	t = true, -- wrap text using textwidth
 	c = true, -- wrap comments using textwidth
@@ -58,9 +59,9 @@ opt.formatoptions = {
 	b = true, -- auto-wrap on insert, do not wrap old long lines
 }
 -- stop newline comments for c and rust
-vim.cmd([[
-    autocmd FileType c,cpp,php,rust,javascript,zig setlocal comments-=:// comments+=f://
-]])
+-- vim.cmd([[
+--     autocmd FileType c,cpp,php,rust,javascript,zig setlocal comments-=:// comments+=f://
+-- ]])
 
 ---- SEARCH
 -- sets highlight
