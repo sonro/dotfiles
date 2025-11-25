@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/home/topher/xDev/pro/game/intercooler/src'
+let g:netrw_dirhist_4='/home/topher/xDev/pro/game/raylib/src'
+let g:netrw_dirhist_3='/home/topher/xDev/sore/sdl/src'
+let g:netrw_dirhist_2='/home/topher/xDev/sore/sdl/examples'
+let g:netrw_dirhist_1='/home/topher/xDev/scratch/raylib-test/pure-c'
