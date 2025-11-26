@@ -94,6 +94,9 @@ opt.background = "dark"
 vim.filetype.add({ extension = { zon = "zig" } })
 -- c
 vim.filetype.add({ extension = { h = "c" } })
+-- superhtml and supermd
+vim.filetype.add({ extension = { smd = "markdown" } })
+vim.filetype.add({ extension = { shmtl = "html" } })
 
 ---- MISC
 -- backspace
